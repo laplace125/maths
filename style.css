@@ -332,6 +332,16 @@ a { color: inherit; }
 .topic-meta { color: var(--muted); margin-bottom: 1.1rem; }
 .topic-step { margin: 1.5rem 0 0.6rem; font-weight: 600; }
 
+.topic-wide { grid-column: 1 / -1; }
+.topic-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.75rem;
+  align-items: start;
+}
+.topic-quiz { align-self: center; }
+.btn-sm { margin-top: 0.75rem; padding: 0.5rem 1rem; font-size: 0.95rem; }
+
 /* Video (click to load, so the page stays fast) */
 .video {
   position: relative;
