@@ -1,0 +1,410 @@
+/* AKANO Maths Corner
+   Design idea: a squared exercise book marked by a teacher's red pen. */
+
+:root {
+  --paper: #F2F7FB;
+  --grid: #DCE8F2;
+  --ink: #132238;
+  --muted: #465A72;
+  --pen: #C81E2F;
+  --highlight: #FFD84D;
+  --ok: #1B7F52;
+  --card: #FFFFFF;
+  --line: #C4D5E5;
+
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, sans-serif;
+  --font-hand: "Caveat", "Segoe Print", "Comic Sans MS", cursive;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+img, svg { max-width: 100%; }
+
+.container {
+  width: min(1080px, 100% - 2.5rem);
+  margin-inline: auto;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.6em;
+}
+
+h1 { font-size: clamp(2.4rem, 5.6vw, 4rem); font-weight: 750; }
+h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 700; }
+h3 { font-size: 1.35rem; font-weight: 650; }
+
+p { margin: 0 0 1em; max-width: 62ch; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--pen);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  z-index: 100;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(242, 247, 251, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  background: var(--ink);
+  color: var(--highlight);
+  border-radius: 8px;
+  font-size: 1.15rem;
+}
+
+.nav-list {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list a {
+  display: block;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav-list a:hover { background: var(--highlight); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.35rem;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { background: var(--highlight); color: var(--ink); }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost:hover { background: #fff; }
+
+.text-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.text-link:hover { color: var(--pen); }
+
+/* ---------- Exercise-book sheet ---------- */
+.sheet {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1.75rem 1.75rem 1.75rem 4.25rem;
+  box-shadow: 0 1px 0 var(--line), 0 12px 28px -16px rgba(19, 34, 56, 0.35);
+}
+/* the red margin line of an exercise book */
+.sheet::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2.9rem;
+  width: 2px;
+  background: var(--pen);
+  opacity: 0.75;
+}
+
+.sheet-note {
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+/* ---------- Hero ---------- */
+.hero { padding-block: clamp(2.5rem, 7vw, 5.5rem); }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+/* ---------- Challenge ---------- */
+.challenge h2 { font-size: 1.5rem; margin-bottom: 0.3em; }
+
+.question {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.4vw, 2.6rem);
+  font-weight: 600;
+  padding-block: 0.6rem 1.4rem;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.question i { font-style: italic; font-weight: 500; }
+.question sup { font-size: 0.55em; }
+.question .slot { vertical-align: super; line-height: 0; }
+
+.question input {
+  font: inherit;
+  font-size: 0.55em;
+  width: 2.6em;
+  padding: 0.05em 0.2em;
+  text-align: center;
+  color: var(--ink);
+  background: #FFFBE0;
+  border: 0;
+  border-bottom: 3px solid var(--pen);
+  border-radius: 3px 3px 0 0;
+}
+.question input.plain { font-size: 1em; width: 2.2em; vertical-align: baseline; }
+.question input:read-only { background: transparent; }
+
+.challenge-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+.streak { color: var(--muted); font-size: 0.95rem; }
+
+.feedback {
+  min-height: 3.5rem;
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+.feedback p { margin: 0; }
+.feedback .note {
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--pen);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.feedback .note.good { color: var(--ok); }
+
+.mark { flex: none; width: 2rem; height: 2rem; margin-top: 0.1rem; }
+.mark path {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: draw 0.4s ease-out forwards;
+}
+.mark.good path { stroke: var(--ok); }
+.mark.bad path { stroke: var(--pen); }
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* ---------- Sections ---------- */
+.section { padding-block: clamp(3rem, 7vw, 5rem); }
+.section-tint {
+  background: rgba(255, 255, 255, 0.72);
+  border-block: 1px solid var(--line);
+}
+.section-intro { color: var(--muted); font-size: 1.1rem; margin-bottom: 2rem; }
+
+/* Steps */
+.steps {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.steps li {
+  border-top: 3px solid var(--ink);
+  padding-top: 1rem;
+}
+.step-num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 750;
+  font-size: 2.6rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.steps h3 { margin-bottom: 0.3em; }
+.steps p { color: var(--muted); margin: 0; }
+
+.margin-note {
+  margin: 2.5rem 0 0;
+  max-width: 34ch;
+  font-family: var(--font-hand);
+  font-size: clamp(1.8rem, 3.6vw, 2.4rem);
+  line-height: 1.15;
+  color: var(--pen);
+  transform: rotate(-1.5deg);
+}
+
+/* Topics */
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+.topic h3 { font-size: 1.7rem; margin-bottom: 0.15em; }
+.topic-meta { color: var(--muted); margin-bottom: 1.1rem; }
+.topic-step { margin: 1.5rem 0 0.6rem; font-weight: 600; }
+
+/* Video (click to load, so the page stays fast) */
+.video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.video iframe, .video-btn {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.video-btn:hover .play { transform: scale(1.08); }
+.play {
+  display: grid;
+  place-items: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  background: var(--highlight);
+  border-radius: 50%;
+  transition: transform 0.15s;
+}
+.play::after {
+  content: "";
+  margin-left: 0.25rem;
+  border-style: solid;
+  border-width: 0.6rem 0 0.6rem 1rem;
+  border-color: transparent transparent transparent var(--ink);
+}
+
+/* About */
+.about-grid { max-width: 720px; }
+
+/* Footer */
+.site-footer {
+  background: var(--ink);
+  color: #DCE6F1;
+  padding-block: 2rem;
+  font-size: 0.95rem;
+}
+.site-footer p { margin: 0 0 0.3rem; max-width: none; }
+.site-footer a:hover { color: var(--highlight); }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .sheet { padding: 1.4rem 1.1rem 1.4rem 3.1rem; }
+  .sheet::before { left: 2rem; }
+  .brand-name { font-size: 1rem; }
+  .nav-list a { padding-inline: 0.55rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .mark path { animation: none; stroke-dashoffset: 0; }
+  * { transition: none !important; }
+}
